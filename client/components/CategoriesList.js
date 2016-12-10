@@ -2,37 +2,38 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 class CategoriesList extends Component {
-  componentWillMount() {
-    //this.props.fetchPosts();
+
+  constructor(props) {
+    super(props);
+    this.getProductsByCategory = this.getProductsByCategory.bind(this);
   }
 
+  getProductsByCategory(event) {
+    let categoryId = event.currentTarget.id;
+    this.props.fetchProductsByCategory(categoryId);
+  }
 
-  /*renderPosts(posts) {
-    return posts.map((post) => {
-      return (
-        <li className="list-group-item" key={post._id}>
-          <Link style={{color:'black'}} to={"posts/" + post._id}>
-            <h3 className="list-group-item-heading">{post.name}</h3>
-          </Link>
-        </li>
-      );
-    });
-  } */
+  componentWillMount() {
+    this.props.fetchCategories();
+  }
 
   render() {
-    /*const { posts, loading, error } = this.props.postsList;
+    //console.log('categoriesList', this.props);
+    const { categories, loading, error } = this.props.categoriesList;
 
     if(loading) {
       return <div className="container"><h1>Categories</h1><h3>Loading...</h3></div>      
     } else if(error) {
       return <div className="alert alert-danger">Error: {error.message}</div>
-    } */
+    } 
 
     return (
       <div className="col-md-3">
         <h1>Categories</h1>
         <ul className="list-group">
-          <li>Category 2</li>
+          {categories.map((category, i) =>
+            <li onClick={this.getProductsByCategory} id={category._id} key={category._id}>{category.name}</li>
+          )}
         </ul>
       </div>
     );

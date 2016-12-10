@@ -22,7 +22,7 @@ export default function(state = INITIAL_STATE, action) {
   	return { ...state, categoriesList: {categories:[], error: null, loading: true} }; 
   case FETCH_CATEGORIES_SUCCESS:
     return { ...state, categoriesList: {categories: action.payload, error:null, loading: false} };
-  case FETCH_POSTS_FAILURE:
+  case FETCH_CATEGORIES_FAILURE:
     error = action.payload || {message: action.payload.message};
     return { ...state, categoriesList: {categories: [], error: error, loading: false} };
   case RESET_CATEGORIES:

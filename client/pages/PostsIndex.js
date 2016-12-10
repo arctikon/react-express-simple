@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import HeaderContainer from '../containers/HeaderContainer.js';
 import ProductsList from '../containers/ProductsListContainer.js';
-import CategoriesList from '../components/CategoriesList.js';
+import CategoriesList from '../containers/CategoriesListContainer.js';
 import ModalCategory from '../components/ModalCategory.js';
 
 class PostsIndex extends Component {

@@ -1,5 +1,6 @@
 import {
   FETCH_PRODUCTS, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_FAILURE, RESET_PRODUCTS,
+  FETCH_PRODUCTS_BY_CATEGORY, FETCH_PRODUCTS_BY_CATEGORY_SUCCESS, FETCH_PRODUCTS_BY_CATEGORY_FAILURE, RESET_PRODUCTS_BY_CATEGORY,
   CREATE_PRODUCT, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_FAILURE, RESET_NEW_PRODUCT, 
   UPDATE_PRODUCT, UPDATE_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAILURE, RESET_EXISTED_PRODUCT, 
   FETCH_PRODUCT, FETCH_PRODUCT_SUCCESS, FETCH_PRODUCT_FAILURE, RESET_GETTED_PRODUCT, 
@@ -19,13 +20,23 @@ export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
 
   case FETCH_PRODUCTS:
-    return { ...state, productsList: {products:[], error: null, loading: true} }; 
+    return { ...state, productsList: {products:[], error: null, loading: true}}; 
   case FETCH_PRODUCTS_SUCCESS:
     return { ...state, productsList: {products: action.payload, error:null, loading: false} };
   case FETCH_PRODUCTS_FAILURE:
     error = action.payload || {message: action.payload.message};
     return { ...state, productsList: {products: [], error: error, loading: false} };
   case RESET_PRODUCTS:
+    return { ...state, productsList: {products: [], error:null, loading: false} };
+
+  case FETCH_PRODUCTS_BY_CATEGORY:
+    return { ...state, productsList: {products:[], error: null, loading: true}}; 
+  case FETCH_PRODUCTS_BY_CATEGORY_SUCCESS:
+    return { ...state, productsList: {products: action.payload, error:null, loading: false} };
+  case FETCH_PRODUCTS_BY_CATEGORY_FAILURE:
+    error = action.payload || {message: action.payload.message};
+    return { ...state, productsList: {products: [], error: error, loading: false} };
+  case RESET_PRODUCTS_BY_CATEGORY:
     return { ...state, productsList: {products: [], error:null, loading: false} };
 
   case FETCH_PRODUCT:

@@ -6,6 +6,13 @@ export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
 export const RESET_PRODUCTS = 'RESET_PRODUCTS';
 
+
+//Fetch products by category name
+export const FETCH_PRODUCTS_BY_CATEGORY = 'FETCH_PRODUCTS_BY_CATEGORY';
+export const FETCH_PRODUCTS_BY_CATEGORY_SUCCESS = 'FETCH_PRODUCTS_BY_CATEGORY_SUCCESS';
+export const FETCH_PRODUCTS_BY_CATEGORY_FAILURE = 'FETCH_PRODUCTS_BY_CATEGORY_FAILURE';
+export const RESET_PRODUCTS_BY_CATEGORY = 'RESET_PRODUCTS_BY_CATEGORY';
+
 //Create new product
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS';
@@ -65,9 +72,46 @@ export function fetchProductsFailure(error) {
 export function resetProductFields() {
   return {
     type: RESET_PRODUCT_FIELDS
-  }
+  };
 }
-;
+
+
+
+
+export function fetchProductsByCategory(categoryId) {
+  const request = axios({
+    method: 'get',
+    url: `${ROOT_URL}/products/byCategory/${categoryId}`,
+    headers: []
+  });
+
+  return {
+    type: FETCH_PRODUCTS_BY_CATEGORY,
+    payload: request
+  };
+}
+
+export function fetchProductsByCategorySuccess(products) {
+  return {
+    type: FETCH_PRODUCTS_BY_CATEGORY_SUCCESS,
+    payload: products
+  };
+}
+
+export function fetchProductsByCategoryFailure(error) {
+  return {
+    type: FETCH_PRODUCTS_BY_CATEGORY_FAILURE,
+    payload: error
+  };
+}
+
+
+export function resetProductsByCategory() {
+  return {
+    type: RESET_PRODUCTS_BY_CATEGORY
+  };
+}
+
 
 
 export function createProduct(props) {

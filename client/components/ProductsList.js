@@ -8,10 +8,10 @@ class ProductsList extends Component {
 
 
   renderProducts(products) {
-    return products.map((post) => {
+    return products.map((product) => {
       return (
-        <li className="list-group-item" key={post._id}>
-            <h3 className="list-group-item-heading">{post.name}</h3>
+        <li className="list-group-item" key={product._id}>
+            <h3 className="list-group-item-heading">{product.name}</h3>
         </li>
       );
     });

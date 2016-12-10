@@ -60,6 +60,19 @@ router.get('/products/:id', function(req, res) {
 
 });
 
+router.get('/products/byCategory/:categoryId', function(req, res) {
+
+	Product.find({_category: mongoose.Types.ObjectId(req.params.categoryId)})
+	.then(function(product) {
+    	res.json(product); 
+	})
+	.catch(function(err){
+	  console.error('error:', err);
+	});
+
+});
+
+
 router.delete('/products/:id', function(req, res) {
 
 	Product.remove({_id: mongoose.Types.ObjectId(req.params.id)})
