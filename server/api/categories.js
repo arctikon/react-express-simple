@@ -17,10 +17,7 @@ router.get('/categories', function(req, res, next) {
 router.post('/categories', function(req, res) {
 
 	Category.create({
-        name: req.body.name,
-		_category: mongoose.Types.ObjectId(req.body.category_id),
-	    price: req.body.price,
-	    purchasingPrice: req.body.purchasingPrice,
+        name: req.body.name
 	}).then(function(product) {
 		res.json(product);
     })
@@ -35,10 +32,7 @@ router.put('/categories', function(req, res) {
 	Category.update(
 		{_id: mongoose.Types.ObjectId(req.body._id)},
 		{
-	        name: req.body.name,
-			_category: mongoose.Types.ObjectId(req.body.category_id),
-		    price: req.body.price,
-		    purchasingPrice: req.body.purchasingPrice,
+	        name: req.body.name
 	}).then(function(category) {
 		res.json(category);
     })

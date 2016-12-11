@@ -16,8 +16,7 @@ const db = require('./config/db');
 let productsApi = require('./api/products');
 let categoriesApi = require('./api/categories');
 
-app.use('/api', productsApi);
-app.use('/api', categoriesApi);
+
 
 //-------------------------------------------------------------------
 //  end
@@ -31,8 +30,13 @@ app.use(express.static(path.join(__dirname, '../build')))
 // express middleware
 app.use(logger('dev'))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 app.use(cookieParser())
+
+app.use('/api', productsApi);
+app.use('/api', categoriesApi);
 
 // development error handler will print stacktrace
 if (app.get('env') === 'development') {

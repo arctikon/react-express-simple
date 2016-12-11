@@ -98,10 +98,10 @@ export function createCategoryFailure(error) {
 }
 
 
-export function updateCategory(props) {
+export function updateCategory(category) {
   const request = axios({
     method: 'put',
-    data: props,
+    data: category,
     url: `${ROOT_URL}/categories`
   });
 
