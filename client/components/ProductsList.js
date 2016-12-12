@@ -30,6 +30,7 @@ class ProductsList extends Component {
   }
 
 
+
   renderProducts(products) {
     return products.map((product) => {
       return (
