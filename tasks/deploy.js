@@ -8,6 +8,7 @@ const co = require('co')
 // Production model
 global.DEBUG = false
 
+
 function deploy() {
   return co(function* () {
     run(require('./server'))
