@@ -84,6 +84,7 @@
     "webpack-hot-middleware": "~2.12.1"
   },
   "dependencies": {
+    "autoprefixer": "~6.3.6",
     "axios": "^0.15.3",
     "body-parser": "~1.15.1",
     "co": "~4.6.0",
