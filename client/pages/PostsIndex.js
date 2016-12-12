@@ -4,6 +4,9 @@ import ProductsList from '../containers/ProductsListContainer.js';
 import CategoriesList from '../containers/CategoriesListContainer.js';
 import ModalCategory from '../containers/ModalCategoryContainer.js';
 import ModalCategoryDelete from '../containers/ModalCategoryDeleteContainer.js';
+import ModalProduct from '../containers/ModalProductContainer.js';
+import ModalProductDelete from '../containers/ModalProductDeleteContainer.js';
+
 
 class PostsIndex extends Component {
 
@@ -12,11 +15,16 @@ class PostsIndex extends Component {
 	    super(props, context);
 
 	    this.state = {
-		    view: {showCategoryModal: false},
+		    showCategoryModal: false,
 		    isCategoryUpdate: false,
 		    showCategoryDeleteModal: false,
+		    showProductModal: false,
+    		isProductUpdate: false,
+    		showCategoryDeleteModal: false,
+	    	product: {},
 	    	category: {},
-	    	removedCategory: {}
+	    	removedCategory: {},
+	    	removedProduct: {}
 	    };
 	    this.handleShowCategoryModal = this.handleShowCategoryModal.bind(this);
 	    this.handleHideCategoryModal = this.handleHideCategoryModal.bind(this);
@@ -24,11 +32,14 @@ class PostsIndex extends Component {
 	    this.handleShowCategoryDeleteModal = this.handleShowCategoryDeleteModal.bind(this);
 	    this.handleHideCategoryDeleteModal = this.handleHideCategoryDeleteModal.bind(this);
 	    this.handleCategoryDelete = this.handleCategoryDelete.bind(this);
+	    this.handleShowProductModal = this.handleShowProductModal.bind(this);
+	    this.handleHideProductModal = this.handleHideProductModal.bind(this);
+	    this.handleProductUpdate = this.handleProductUpdate.bind(this);
 	}
 
     handleHideCategoryModal(){
     	this.setState({
-    		view: {showCategoryModal: false},
+    		showCategoryModal: false,
     		isCategoryUpdate: false,
 	    	category: {}
     	})
@@ -36,9 +47,25 @@ class PostsIndex extends Component {
 
     handleShowCategoryModal(){
     	this.setState({
-    		view: {showCategoryModal: true},
+    		showCategoryModal: true,
     		isCategoryUpdate: false,
 	    	category: {}
+    	});
+    }
+
+    handleHideProductModal(){
+    	this.setState({
+    		showProductModal: false,
+    		isProductUpdate: false,
+	    	product: {}
+    	})
+    }
+
+    handleShowProductModal(){
+    	this.setState({
+    		showProductModal: true,
+    		isProductUpdate: false,
+	    	product: {}
     	});
     }
 
@@ -58,7 +85,7 @@ class PostsIndex extends Component {
     	this.setState({
     		isCategoryUpdate: true,
     		category: category,
-    		view: {showCategoryModal: true}
+    		showCategoryModal: true
     	});
     }
 
@@ -66,6 +93,14 @@ class PostsIndex extends Component {
     	this.setState({
     		showCategoryDeleteModal: true,
     		removedCategory: category
+    	});
+    }
+
+    handleProductUpdate(product){
+    	this.setState({
+    		isProductUpdate: true,
+    		product: product,
+    		showProductModal: true
     	});
     }
  
@@ -78,16 +113,16 @@ class PostsIndex extends Component {
 	        <HeaderContainer type="posts_index"/>
 	        <div className="container">
 	            <button className="btn btn-default" onClick={this.handleShowCategoryModal}>Add Category</button>
-		        <button className="btn btn-default">Add Product</button>
-               <button className="btn btn-default" onClick={this.handleShowCategoryDeleteModal}>Delete Category</button>
+		        <button className="btn btn-default" onClick={this.handleShowProductModal}>Add Product</button>
 
 		        <div className="row">
 		          <CategoriesList onUpdateCategory={this.handleCategoryUpdate} onDeleteCategory={this.handleCategoryDelete}/>
-		          <ProductsList />
+		          <ProductsList onUpdateProduct={this.handleProductUpdate} />
 		        </div> 
 	        </div>
-	        {this.state.view.showCategoryModal ? <ModalCategory isCategoryUpdate={isCategoryUpdate} category={category} handleHideCategoryModal={this.handleHideCategoryModal}/> : null}
+	        {this.state.showCategoryModal ? <ModalCategory isCategoryUpdate={isCategoryUpdate} category={category} handleHideCategoryModal={this.handleHideCategoryModal}/> : null}
 	        {this.state.showCategoryDeleteModal ? <ModalCategoryDelete category={removedCategory}  handleHideCategoryDeleteModal={this.handleHideCategoryDeleteModal}/> : null}
+	        {this.state.showProductModal ? <ModalProduct isProductUpdate={this.state.isProductUpdate} product={this.state.product} handleHideProductModal={this.handleHideProductModal}/> : null}
 	      </div>
 	    );
 	  }

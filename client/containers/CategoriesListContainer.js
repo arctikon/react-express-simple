@@ -5,7 +5,6 @@ import CategoriesList from '../components/CategoriesList';
 
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return { 
     categoriesList: state.categories.categoriesList // 
   };

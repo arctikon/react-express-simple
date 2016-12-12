@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/products_db', function() {
+
+//mongodb://localhost/products_db
+mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds145667.mlab.com:45667/heroku_8gf36s7b', function() {
 	console.log('mongo db connected');
 });
 

@@ -2,8 +2,31 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 class ProductsList extends Component {
+
+  constructor(props) {
+    super(props);
+    this.updateProductHandler = this.updateProductHandler.bind(this);
+    this.deleteProductHandler = this.deleteProductHandler.bind(this);
+  }
+
   componentWillMount() {
     this.props.fetchProducts();
+  }
+
+  updateProductHandler(event) {
+    console.log(this.props);
+    this.props.onUpdateProduct({
+      _id: event.target.getAttribute('data-id'), 
+      name: event.target.getAttribute('data-name'),
+      price: event.target.getAttribute('data-price'),
+      category_id: event.target.getAttribute('data-category'),
+      purchasingPrice: event.target.getAttribute('data-purch-price')
+    });
+  }
+
+  deleteProductHandler(event) {
+    let categoryId = event.target.getAttribute('data-id');
+    this.props.onDeleteProduct({_id: categoryId});
   }
 
 
@@ -12,6 +35,8 @@ class ProductsList extends Component {
       return (
         <li className="list-group-item" key={product._id}>
             <h3 className="list-group-item-heading">{product.name}</h3>
+            <button type="button" data-id={product._id} data-name={product.name} data-category={product._category} data-purch-price={product.purchasingPrice} data-price={product.price} onClick={this.updateProductHandler} className="btn btn-primary">Edit</button>
+            <button type="button" data-id={product._id} onClick={this.deleteProductHandler} className="btn btn-primary">Delete</button>
         </li>
       );
     });

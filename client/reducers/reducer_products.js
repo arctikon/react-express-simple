@@ -12,7 +12,7 @@ import {
               newProduct:{product:null, error: null, loading: false}, 
               updatedProduct:{product:null, error: null, loading: false},
               fetchedProduct:{product:null, error:null, loading: false}, 
-              deletedProduct: {product: null, error:null, loading: false},
+              deletedProduct: {product: null, error:null, loading: false}
             };
 
 export default function(state = INITIAL_STATE, action) {
