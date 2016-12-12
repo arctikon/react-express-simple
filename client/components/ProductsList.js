@@ -42,6 +42,7 @@ class ProductsList extends Component {
       );
     });
   }
+  
 
   render() {
     const { products, loading, error } = this.props.productsList;
