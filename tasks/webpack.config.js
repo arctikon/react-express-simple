@@ -125,16 +125,10 @@ const appConfig = {
       }, {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
         loader: 'url-loader?limit=5000',
-      }, {
-        test: /\.(eot|ttf|wav|mp3)$/,
-        loader: 'file-loader',
-      }, {
+      },  {
         test: /\.css/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?' + (global.DEBUG ? 'sourceMap' : '') + `!postcss-loader?${AUTOPREFIXER}`),
-      }, {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?' + (global.DEBUG ? 'sourceMap' : '') + `!postcss-loader?${AUTOPREFIXER}!less-loader?` + (global.DEBUG ? 'sourceMap' : '')),
-      },
+      }, 
     ],
   },
 
