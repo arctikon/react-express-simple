@@ -5,13 +5,15 @@ const express = require('express'),
 
 router.get('/categories', function(req, res, next) {
 
-	Category.find()
+	res.json({hello: 'world'}); 
+
+	/*Category.find()
 	.then(function(categories) {
     	res.json(categories); 
 	})
 	.catch(function(err){
 	  console.error('error:', err);
-	});
+	}); */
 });
 
 router.post('/categories', function(req, res) {
