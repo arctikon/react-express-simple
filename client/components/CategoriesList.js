@@ -6,6 +6,7 @@ class CategoriesList extends Component {
   constructor(props) {
     super(props);
     this.getProductsByCategory = this.getProductsByCategory.bind(this);
+    this.getProductsWithoutCategory = this.getProductsWithoutCategory.bind(this);
     this.updateCategoryHandler = this.updateCategoryHandler.bind(this);
     this.deleteCategoryHandler = this.deleteCategoryHandler.bind(this);
   }
@@ -13,6 +14,10 @@ class CategoriesList extends Component {
   getProductsByCategory(event) {
     let categoryId = event.currentTarget.id;
     this.props.fetchProductsByCategory(categoryId);
+  }
+
+  getProductsWithoutCategory(event) {
+    this.props.fetchProductsWithoutCategory();
   }
 
   updateCategoryHandler(event) {
@@ -31,7 +36,6 @@ class CategoriesList extends Component {
   }
 
   render() {
-    //console.log('categoriesList', this.props);
     const { categories, loading, error } = this.props.categoriesList;
 
     if(loading) {
@@ -51,6 +55,7 @@ class CategoriesList extends Component {
               <button type="button" data-id={category._id} onClick={this.deleteCategoryHandler} className="btn btn-primary">Delete</button>
             </li>
           )}
+          <li onClick={this.getProductsWithoutCategory}> Without Category</li>
         </ul>
       </div>
     );

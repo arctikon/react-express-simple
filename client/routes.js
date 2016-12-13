@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './pages/App';
-import PostsIndex from './pages/PostsIndex';
+import IndexPage from './pages/IndexPage';
 
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={PostsIndex} />
+    <IndexRoute component={IndexPage} />
   </Route>
 );

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { fetchCategories, fetchCategoriesSuccess, fetchCategoriesFailure } from '../actions/categories';
-import { fetchProductsByCategory, fetchProductsByCategorySuccess, fetchProductsByCategoryFailure } from '../actions/products';
+import { fetchProductsByCategory, fetchProductsByCategorySuccess, fetchProductsByCategoryFailure, fetchProductsWithoutCategory, fetchProductsWithoutCategorySuccess, fetchProductsWithoutCategoryFailure } from '../actions/products';
 import CategoriesList from '../components/CategoriesList';
 
 
@@ -21,7 +21,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(fetchProductsByCategory(categoryId)).then((response) => {
             !response.error ? dispatch(fetchProductsByCategorySuccess(response.payload.data)) : dispatch(fetchProductsByCategoryFailure(response.payload.data));
           });
-    }
+    },
+    fetchProductsWithoutCategory: () => {
+      dispatch(fetchProductsWithoutCategory()).then((response) => {
+            !response.error ? dispatch(fetchProductsWithoutCategorySuccess(response.payload.data)) : dispatch(fetchProductsWithoutCategoryFailure(response.payload.data));
+          });
+    },
   }
 }
 

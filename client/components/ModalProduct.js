@@ -8,7 +8,11 @@ class ModalProduct extends Component {
     super(props);
     this.saveProductChangesHandler = this.saveProductChangesHandler.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
-    this.state = {value:  this.props.product.category_id};
+    this.state = {
+      value:  this.props.product.category_id,
+      error: false,
+      errorText: ''
+    };
   }
 
   componentWillMount() {
@@ -16,7 +20,6 @@ class ModalProduct extends Component {
   }
 
   componentDidMount() {
-    console.log('mounted');
     $(ReactDOM.findDOMNode(this)).modal('show');
     $(ReactDOM.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideProductModal);
   }
@@ -35,6 +38,35 @@ class ModalProduct extends Component {
     let productPrice = $('#product-price').val();
     let productPurchPrice = $('#product-purch-price').val();
     let categoryId = $('#product-category').val();
+    if(productName.trim().length == 0){
+      this.state = {
+        error: true,
+        errorText: 'Fill out name of product'
+      };
+      this.forceUpdate();
+      return;
+    }
+     
+    if(productPrice.trim().length == 0 || /^\d+$/.test(productPrice) == false){
+      this.state = {
+        error: true,
+        errorText: 'Product price must be not empty and contain only digits'
+      };
+      this.forceUpdate();
+      return;
+    }
+
+
+    if(productPurchPrice.trim().length == 0 || /^\d+$/.test(productPurchPrice) == false){
+      this.state = {
+        error: true,
+        errorText: 'Product purchase price must be not empty and contain only digits'
+      };
+      this.forceUpdate();
+      return;
+    }
+
+    
     if(this.props.isProductUpdate){
       this.props.updateProduct({
         _id: product._id,
@@ -52,7 +84,7 @@ class ModalProduct extends Component {
       });
     } 
     $(ReactDOM.findDOMNode(this)).modal('hide');
-    this.props.handleHideModal();
+    this.props.handleHideProductModal();
   }
 
 
@@ -91,6 +123,12 @@ class ModalProduct extends Component {
               <input type="text" className="form-control" id="product-purch-price" placeholder="Product Purchase Price" defaultValue={product.purchasingPrice} />
             </div>
           </div>
+          {this.state.error ? 
+              <div className="alert alert-danger">
+                <strong>Error!</strong> {this.state.errorText}
+              </div> 
+            :
+             false}
           <div className="modal-footer">
             <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
             <button type="button" onClick={this.saveProductChangesHandler} className="btn btn-primary">Save changes</button>

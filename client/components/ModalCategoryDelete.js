@@ -9,7 +9,6 @@ class ModalCategoryDelete extends Component {
   }
 
   componentDidMount() {
-    console.log('mounted delete');
     $(ReactDOM.findDOMNode(this)).modal('show');
     $(ReactDOM.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideCategoryDeleteModal);
   }

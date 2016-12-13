@@ -1,6 +1,7 @@
 const express = require('express'),
 	router = express.Router(),
 	mongoose = require('mongoose'),
+	_ = require('lodash'),
     Product = require('../domain/product/product');
 
 router.get('/products', function(req, res, next) {
@@ -14,14 +15,27 @@ router.get('/products', function(req, res, next) {
 	});
 });
 
+
+router.get('/products/withoutCategory', function(req, res, next) {
+
+	Product.find({ "_category" : { "$exists" : false } })
+	.then(function(products) {
+    	res.json(products); 
+	})
+	.catch(function(err){
+	  console.error('error:', err);
+	});
+});
+
 router.post('/products', function(req, res) {
 
-	Product.create({
-        name: req.body.name,
-		_category: mongoose.Types.ObjectId(req.body.category_id),
-	    price: req.body.price,
-	    purchasingPrice: req.body.purchasingPrice,
-	}).then(function(product) {
+	let newProduct = {name: req.body.name, price: req.body.price, purchasingPrice: req.body.purchasingPrice};
+
+	if(req.body.category_id.match(/^[0-9a-fA-F]{24}$/)){
+		newProduct._category = mongoose.Types.ObjectId(req.body.category_id);
+	}
+
+	Product.create(newProduct).then(function(product) {
 		res.json(product);
     })
     .catch(function(err){
@@ -32,14 +46,13 @@ router.post('/products', function(req, res) {
 
 router.put('/products', function(req, res) {
 
-	Product.update(
-		{_id: mongoose.Types.ObjectId(req.body._id)},
-		{
-	        name: req.body.name,
-			_category: mongoose.Types.ObjectId(req.body.category_id),
-		    price: req.body.price,
-		    purchasingPrice: req.body.purchasingPrice,
-	}).then(function(product) {
+	let existProduct = {name: req.body.name, price: req.body.price, purchasingPrice: req.body.purchasingPrice};
+
+	if(req.body.category_id.match(/^[0-9a-fA-F]{24}$/)){
+		existProduct._category = mongoose.Types.ObjectId(req.body.category_id);
+	}
+
+	Product.update({_id: mongoose.Types.ObjectId(req.body._id)}, existProduct).then(function(product) {
 		res.json(product);
     })
     .catch(function(err){

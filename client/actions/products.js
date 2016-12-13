@@ -13,6 +13,13 @@ export const FETCH_PRODUCTS_BY_CATEGORY_SUCCESS = 'FETCH_PRODUCTS_BY_CATEGORY_SU
 export const FETCH_PRODUCTS_BY_CATEGORY_FAILURE = 'FETCH_PRODUCTS_BY_CATEGORY_FAILURE';
 export const RESET_PRODUCTS_BY_CATEGORY = 'RESET_PRODUCTS_BY_CATEGORY';
 
+
+//Fetch products by category name
+export const FETCH_PRODUCTS_WITHOUT_CATEGORY = 'FETCH_PRODUCTS_WITHOUT_CATEGORY';
+export const FETCH_PRODUCTS_WITHOUT_CATEGORY_SUCCESS = 'FETCH_PRODUCTS_WITHOUT_CATEGORY_SUCCESS';
+export const FETCH_PRODUCTS_WITHOUT_CATEGORY_FAILURE = 'FETCH_PRODUCTS_WITHOUT_CATEGORY_FAILURE';
+export const RESET_PRODUCTS_WITHOUT_CATEGORY = 'RESET_PRODUCTS_WITHOUT_CATEGORY';
+
 //Create new product
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS';
@@ -109,6 +116,42 @@ export function fetchProductsByCategoryFailure(error) {
 export function resetProductsByCategory() {
   return {
     type: RESET_PRODUCTS_BY_CATEGORY
+  };
+}
+
+
+
+export function fetchProductsWithoutCategory() {
+  const request = axios({
+    method: 'get',
+    url: `${ROOT_URL}/products/withoutCategory`,
+    headers: []
+  });
+
+  return {
+    type: FETCH_PRODUCTS_WITHOUT_CATEGORY,
+    payload: request
+  };
+}
+
+export function fetchProductsWithoutCategorySuccess(products) {
+  return {
+    type: FETCH_PRODUCTS_WITHOUT_CATEGORY_SUCCESS,
+    payload: products
+  };
+}
+
+export function fetchProductsWithoutCategoryFailure(error) {
+  return {
+    type: FETCH_PRODUCTS_WITHOUT_CATEGORY_FAILURE,
+    payload: error
+  };
+}
+
+
+export function resetProductsWithoutCategory() {
+  return {
+    type: RESET_PRODUCTS_WITHOUT_CATEGORY
   };
 }
 

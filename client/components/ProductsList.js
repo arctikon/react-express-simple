@@ -14,7 +14,6 @@ class ProductsList extends Component {
   }
 
   updateProductHandler(event) {
-    console.log(this.props);
     this.props.onUpdateProduct({
       _id: event.target.getAttribute('data-id'), 
       name: event.target.getAttribute('data-name'),
@@ -34,15 +33,20 @@ class ProductsList extends Component {
   renderProducts(products) {
     return products.map((product) => {
       return (
-        <li className="list-group-item" key={product._id}>
-            <h3 className="list-group-item-heading">{product.name}</h3>
-            <button type="button" data-id={product._id} data-name={product.name} data-category={product._category} data-purch-price={product.purchasingPrice} data-price={product.price} onClick={this.updateProductHandler} className="btn btn-primary">Edit</button>
-            <button type="button" data-id={product._id} onClick={this.deleteProductHandler} className="btn btn-primary">Delete</button>
-        </li>
+      <tr key={product._id}> 
+        <td>{product.productId}</td> 
+        <td>{product.name}</td> 
+        <td>{product.price}</td> 
+        <td>{product.purchasingPrice}</td>
+        <td>
+          <button type="button" data-id={product._id} data-name={product.name} data-category={product._category} data-purch-price={product.purchasingPrice} data-price={product.price} onClick={this.updateProductHandler} className="btn btn-primary">Edit</button>
+          <button type="button" data-id={product._id} onClick={this.deleteProductHandler} className="btn btn-primary">Delete</button>
+        </td>
+      </tr>
       );
     });
   }
-  
+
 
   render() {
     const { products, loading, error } = this.props.productsList;
@@ -56,9 +60,22 @@ class ProductsList extends Component {
     return (
       <div className="col-md-9">
         <h1>Products</h1>
-        <ul className="list-group">
-          {this.renderProducts(products)}
-        </ul>
+        <div className="table-responsive">
+          <table className="table">
+            <thead> 
+              <tr> 
+                <th>ID</th> 
+                <th>Name</th> 
+                <th>Price</th> 
+                <th>Purchasing price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody> 
+              {this.renderProducts(products)}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
