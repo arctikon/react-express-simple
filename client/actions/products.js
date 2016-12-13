@@ -228,7 +228,7 @@ export function deleteProduct(id) {
 export function deleteProductSuccess(deletedProduct) {
   return {
     type: DELETE_PRODUCT_SUCCESS,
-    payload: deletedPost
+    payload: deletedProduct
   };
 }
 
